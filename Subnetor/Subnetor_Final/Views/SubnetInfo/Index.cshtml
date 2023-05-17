@@ -1,0 +1,30 @@
+﻿@model IEnumerable<Subnetor.Models.NetworkInfo>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th class="text-center">Subnet Mask</th>
+            <th class="text-center">Needed Size</th>
+            <th class="text-center">Allocated Size</th>
+            <th class="text-center">Percentage Usage</th>
+            <th class="text-center">Visualization</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var subnetInfo in Model)
+        {
+            var ratio = (double)subnetInfo.NeededSize / subnetInfo.AllocatedSize;
+            var subnetId = "subnet-" + Model.ToList().IndexOf(subnetInfo);
+            var visualization = $"<svg id='{subnetId}' class='subnet' width='200' height='30'><rect class='allocated-rect' x='0' y='5' width='200' height='20' fill='#e0e0e0' rx='5' ry='5' /><rect class='needed-rect' x='0' y='5' width='{ratio * 200}' height='20' fill='#ff6f69' rx='5' ry='5' /></svg>";
+            <tr>
+                <td class="text-center">@subnetInfo.SubnetMask</td>
+                <td class="text-center">@subnetInfo.NeededSize</td>
+                <td class="text-center">@subnetInfo.AllocatedSize</td>
+                <td class="text-center">@subnetInfo.PercentageUsage.ToString("0.00")%</td>
+                <td class="text-center">@Html.Raw(visualization)</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script src="https://d3js.org/d3.v7.min.js"></script>

@@ -1,0 +1,93 @@
+﻿@model Subnetor.Models.IPViewModel
+
+@{
+    ViewBag.Title = "Subnet Calculator";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">VLSM Calculator</h2>
+                </div>
+                <div class="card-body">
+                    @using (Html.BeginForm("Calculate", "SubnetCalculator", FormMethod.Post))
+                    {
+                        <div class="form-group">
+                            <label for="IPAddress" class="control-label">IP Address:</label>
+                            @Html.TextBoxFor(model => model.IPAddress, new { @class = "form-control", @id = "IPAddress" })
+                            @Html.ValidationMessageFor(model => model.IPAddress, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group">
+                            <label for="PrefixLength" class="control-label">Prefix Length:</label>
+                            @Html.EditorFor(model => model.PrefixLength, new { htmlAttributes = new { @class = "form-control", @id = "PrefixLength" } })
+                            @Html.ValidationMessageFor(model => model.PrefixLength, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group">
+                            <label for="NeededSize" class="control-label">Needed Size:</label>
+                            @Html.EditorFor(model => model.NeededSize, new { htmlAttributes = new { @class = "form-control", @id = "NeededSize" } })
+                            @Html.ValidationMessageFor(model => model.NeededSize, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group text-right">
+                            <button type="submit" class="btn btn-primary">Calculate</button>
+                        </div>
+                    }
+                    @if (Model != null && Model.NumAddresses > 0)
+                    {
+                        <hr>
+                        <h3 class="text-center mb-4">General Information</h3>
+                        <div class="form-group row">
+                            <label for="networkAddress" class="col-sm-3 col-form-label">Network Address:</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="networkAddress" value="@Model.NetworkAddress" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="broadcastAddress" class="col-sm-3 col-form-label">Broadcast Address:</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="broadcastAddress" value="@Model.BroadcastAddress" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="numAddresses" class="col-sm-3 col-form-label">Number of Addresses:</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="numAddresses" value="@Model.NumAddresses" readonly>
+                            </div>
+                        </div>
+
+                        <hr>
+                        <h3 class="text-center mb-4">Allocation for the Needed Size</h3>
+                        <div class="form-group row">
+                            <label for="subnetMask" class="col-sm-3 col-form-label">Subnet Mask:</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="subnetMask" value="@Model.NetworkAddress/@Model.NewSubnetMask" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="neededSize" class="col-sm-3 col-form-label">Needed Size:</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="neededSize" value="@Model.NeededSize" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="allocatedSize" class="col-sm-3 col-form-label">Allocated Size:</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="allocatedSize" value="@Model.AllocatedSize" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="assignableAddress" class="col-sm-3 col-form-label">Assignable Address:</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="assignableAddress" value="@Model.StartAddress - @Model.EndAddress" readonly>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
