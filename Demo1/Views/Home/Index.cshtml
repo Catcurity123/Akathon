@@ -1,0 +1,20 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<main>
+    <div class="text-center">
+        <h1 class="display-4">Hello World</h1>
+    </div>
+
+    <div class="col-md-4">
+        <h2>@Html.ActionLink("Student", "Index", "students")</h2>
+        <p>This is to manage student info</p>
+    </div>
+
+    <div class="col-md-4">
+        <h2>@Html.ActionLink("Course", "Index", "courses")</h2>
+        <p>This is to manage Courses info</p>
+    </div>
+
+</main>

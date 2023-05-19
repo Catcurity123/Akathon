@@ -1,0 +1,31 @@
+﻿@model Calculator.Models.CalculatorModel
+
+@{
+    ViewBag.Title = "Calculator";
+}
+
+<h2>Calculator</h2>
+
+@using (Html.BeginForm())
+{
+    <div>
+        @Html.LabelFor(m => m.Num1)
+        @Html.TextBoxFor(m => m.Num1)
+    </div>
+    <div>
+        @Html.LabelFor(m => m.Num2)
+        @Html.TextBoxFor(m => m.Num2)
+    </div>
+    <div>
+        @Html.LabelFor(m => m.Op)
+        @Html.DropDownListFor(m => m.Op, new SelectList(new[] { "+", "-", "*", "/" }))
+    </div>
+    <div>
+        <input type="submit" value="Calculate" />
+    </div>
+}
+
+@if (Model.Result != null)
+{
+    <h3>Result: @Model.Result</h3>
+}
